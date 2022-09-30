@@ -58,14 +58,25 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-  window.addEventListener('keydown', function(e) {
-    console.log('Keydown Event');
-    console.log(e);
-    console.log(e.keyCode);
-    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    console.log(audio);
-  });
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); // saves DOM Element into a variabl audio ?
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); // finds the div of the corresponding keydown input from above
+    if(!audio) return; // stop the function all together
+    audio.currentTime = 0; // rewind to the start, resets the audio to the start when already playing, so it begins again, needed for multiple fast inputs
+    audio.play(); // plays the audio
+    key.classList.add('playing'); // adds the class of .playing to the element selected by the keydown keycode
+  }
 
+
+  function removeTransition(e) {
+    if(e.propertyName !== 'transform') return; // skip it if its not a transform
+    this.classList.remove('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+  window.addEventListener('keydown', playSound);
 </script>
 
 
