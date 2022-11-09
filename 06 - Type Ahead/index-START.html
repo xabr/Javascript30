@@ -19,7 +19,15 @@ const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb
 
 const cities = [];
 
-fetch(endpoint).then(blob => console.log(blob));
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => cities.push(...data));
+
+function findMatches(wordToMatch, cities) {
+  return cities.filter(place => {
+    // here we need to match the search value with the array, and return the searched city data or tell them nothing was found!
+  });
+}
 
 </script>
 </body>
