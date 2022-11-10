@@ -26,7 +26,13 @@ fetch(endpoint)
 function findMatches(wordToMatch, cities) {
   return cities.filter(place => {
     // here we need to match the search value with the array, and return the searched city data or tell them nothing was found!
+    const regex = new RegExp(wordToMatch, 'gi');
+    return place.city.match(regex) || place.state.match(regex);
   });
+}
+
+function displayMatches() {
+  console.log(this.value);
 }
 
 </script>
